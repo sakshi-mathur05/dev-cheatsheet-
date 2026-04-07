@@ -89,8 +89,8 @@ var cheatsheetData = [
   {
     title: "Remove File",
     category: "terminal",
-    description: "Clear the terminal screen",
-    code: "clear",
+    description: "Delete a file from the directory",
+    code: "rm filename",
   },
   {
     title: "Git View Status",

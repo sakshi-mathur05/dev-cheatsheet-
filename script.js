@@ -9,10 +9,31 @@ var clearBtn = document.getElementById('clearBtn');
 var currentFilter = 'all';
 var currentSearchTerm = '';
 
+// update count for each category button
+function updateCounts() {
+    var categories = ['all', 'git', 'terminal', 'javascript', 'css', 'react', 'sql'];
+    categories.forEach(function(category) {
+        var countEl = document.getElementById('count-' + category);
+        if (countEl) {
+            if (category === 'all') {
+                countEl.textContent = cheatsheetData.length;
+            } else {
+                var count = cheatsheetData.filter(function(item) {
+                    return item.category === category;
+                }).length;
+                countEl.textContent = count;
+            }
+        }
+    });
+}
+
 // initialize the app when page loads
 function initializeApp() {
     // render all cards on initial load
     renderCards(cheatsheetData);
+
+    // update counts on load
+    updateCounts();
     
     // add event listener for search input
     searchInput.addEventListener('keyup', handleSearch);
@@ -70,8 +91,9 @@ function filterAndRenderCards() {
         var categoryMatch = currentFilter === 'all' || cheatsheet.category === currentFilter;
         
         // check if search term matches title or description
-        var searchMatch = cheatsheet.title.toLowerCase().includes(currentSearchTerm) ||
-                          cheatsheet.description.toLowerCase().includes(currentSearchTerm);
+       var searchMatch = cheatsheet.title.toLowerCase().includes(currentSearchTerm) ||
+                  cheatsheet.description.toLowerCase().includes(currentSearchTerm) ||
+                  cheatsheet.category.toLowerCase().includes(currentSearchTerm);
         
         // return true only if both conditions are met
         return categoryMatch && searchMatch;
@@ -113,7 +135,7 @@ function createCardElement(cheatsheet) {
     card.innerHTML = 
         '<div class="card-header">' +
             '<h3 class="card-title">' + cheatsheet.title + '</h3>' +
-            '<span class="card-category">' + cheatsheet.category + '</span>' +
+            '<span class="card-category"><span class="dot dot-' + cheatsheet.category + '"></span>' + cheatsheet.category + '</span>' +
         '</div>' +
         '<p class="card-description">' + cheatsheet.description + '</p>' +
         '<pre class="card-code">' + escapeHtml(cheatsheet.code) + '</pre>' +
