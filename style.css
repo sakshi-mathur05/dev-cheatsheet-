@@ -201,6 +201,7 @@ body {
 .dot-javascript { background-color: #f59e0b; }
 .dot-css { background-color: #a855f7; }
 .dot-react { background-color: #06b6d4; }
+.dot-sql { background-color: #f97316; }
 
 /* Count badge */
 .count {
@@ -253,7 +254,9 @@ body {
 }
 
 .card-category {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     background-color: var(--category-bg);
     color: var(--text-muted);
     padding: 4px 10px;
